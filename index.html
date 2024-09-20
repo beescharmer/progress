@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Day Progress Bar</title>
+    <style>
+      body {
+        /* background-color: transparent; */
+        background-color: #1e1e2e;
+        --color1: hsl(267, 84%, 81%, 1);
+        --color2: hsl(41, 86%, 83%, 1);
+      }
+      /* Basic styling for the progress bar */
+      .progress-container {
+        width: 100%;
+        background-color: transparent;
+        border-radius: 8px;
+        overflow: hidden;
+        height: 4px;
+      }
+      .progress-bar {
+        height: 100%;
+        background-image: linear-gradient(
+          45deg,
+          var(--color1),
+          var(--color2) 100%
+        );
+        width: 0%; /* Start with 0% width */
+        border-radius: 8px;
+        transition: width 0.5s ease; /* Smooth transition for width changes */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="progress-container">
+      <div id="progress-bar" class="progress-bar"></div>
+    </div>
+
+    <script>
+      function updateProgressBar() {
+        // Get the current time
+        var now = new Date();
+        var hrs = now.getHours();
+        var mins = now.getMinutes();
+
+        // Calculate the total minutes passed today
+        var totalMinutesPassed = hrs * 60 + mins;
+
+        // Total minutes in a day
+        var totalMinutesInDay = 24 * 60;
+
+        // Calculate percentage of the day passed
+        var percentageOfDayPassed =
+          (totalMinutesPassed / totalMinutesInDay) * 100;
+
+        // Update the progress bar width
+        var progressBar = document.getElementById("progress-bar");
+        progressBar.style.width = percentageOfDayPassed + "%";
+      }
+
+      // Update the progress bar when the page loads
+      updateProgressBar();
+
+      // Optionally, update the progress bar every minute to keep it in sync with real time
+      setInterval(updateProgressBar, 60000); // 60,000 ms = 1 minute
+    </script>
+  </body>
+</html>
